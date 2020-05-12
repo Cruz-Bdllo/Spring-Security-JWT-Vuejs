@@ -51,7 +51,7 @@ public class IndexController {
         user.addRoleToList(roleService.findRoleById(2)); // for (1)-admin, (2)-user
 
         userService.saveUser(user);
-        return ResponseEntity.ok("User registered sucessfully!");
+        return ResponseEntity.ok("User registered successfully!");
     } // end signup
 
     @PostMapping("/signin")
@@ -69,6 +69,14 @@ public class IndexController {
 
 
         return ResponseEntity.ok(new AuthenticationResponse(token, user));
+    }
+
+
+    /* ~ Private Route (require authentication)
+    ------------------------------------------------------------------------------------- */
+    @GetMapping("/home")
+    public String myHome(){
+        return "Welcome to your home";
     }
 
 } // end of main rest controller

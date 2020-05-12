@@ -3,6 +3,7 @@ package com.security.app.security.util;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.SignatureException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -18,7 +19,11 @@ public class JwtUtil {
 
     // within claims there are: exp, iss, sub, etc
     public Claims extractClaimsOfToken(String token){
-        return Jwts.parser().setSigningKey(SECRET_WORD).parseClaimsJws(token).getBody();
+        try{
+            return Jwts.parser().setSigningKey(SECRET_WORD).parseClaimsJws(token).getBody();
+        }catch(SignatureException e){
+            throw new SignatureException("Token has been altered");
+        }
     } // end extract claims
 
     public String extractUsername(String token){
