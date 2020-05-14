@@ -1,18 +1,35 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+    <div>
+        <!-- Navbar -->
+        <NavBar />
+
+        <!-- Content -->
+        <div class="container mt-5">
+            <div class="jumbotron">
+                <h1 class="display-4">Hello, username</h1>
+                <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+                <hr class="my-4">
+                <p>Roles: roles</p>
+                
+            </div>
+        </div>
+
+    </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+
+import NavBar from '@/components/TheNavBar';
 
 export default {
-  name: 'Home',
-  components: {
-    HelloWorld
-  }
+
+components: {
+    NavBar
+}
+
 }
 </script>
+
+<style>
+
+</style>
