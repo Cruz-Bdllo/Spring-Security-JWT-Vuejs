@@ -7,21 +7,18 @@ import com.security.app.security.service.MyUserDetailsService;
 import com.security.app.security.util.JwtUtil;
 import com.security.app.services.IRoleService;
 import com.security.app.services.IUserService;
-import com.security.app.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "http://localhost:8080", maxAge = 3600)
 @RestController
+@RequestMapping("/api")
 public class IndexController {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
