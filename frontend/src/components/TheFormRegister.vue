@@ -33,6 +33,11 @@
       The password must be same the before field password 
     </div>
 
+    <div class="alert alert-success" v-if="response !== null">
+      <p class="m-0 p-0">{{response}} <router-link :to="{name: 'Login'}">Sign in</router-link> </p>
+
+    </div>
+
     <!-- Register -->
     <button type="submit" :disabled="$v.$invalid" class="btn btn-success mt-3">Sign up</button>
     
@@ -41,7 +46,9 @@
 
 <script>
 
-import {required, email, minLength, maxLength, sameAs} from 'vuelidate/lib/validators';
+import { required, email, minLength, maxLength, sameAs } from 'vuelidate/lib/validators';
+import { mapActions, mapState } from 'vuex';
+import User from '../models/User';
 
 export default {
     name: 'TheFormRegister',
@@ -54,10 +61,29 @@ export default {
       }
     },
 
+    computed: {
+
+      ...mapState({
+        response: 'responseSignUp'
+      })
+
+    },
+
     methods: {
-      signup() {
-        console.log("sign up");
+
+      ...mapActions({ signUp: 'signUp' }),
+
+      signup() { // debe enviar los datos al api
+
+        // construir el objeto User
+        let userSignUp = new User(this.username, this.password);
+        userSignUp.setEmail(this.email);
+
+        this.signUp(userSignUp);
+
+
       }
+
     },
 
     validations: {
