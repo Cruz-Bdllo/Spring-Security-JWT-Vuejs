@@ -13,7 +13,8 @@ export default new Vuex.Store({
 
 state: {
 	user: null,
-	responseSignUp: null
+	responseSignUp: null,
+	responseLogin: null
 },
 
 mutations: {
@@ -21,8 +22,21 @@ mutations: {
 	setUser(state, value) {
 		state.user = value;
 	},
+
+	
+
 	setResponseSignUp (state, value) {
 		state.responseSignUp = value;
+	},
+
+
+	setResponseLogin (state, value) {
+		state.responseLogin = value;
+	},
+
+
+	setUserInLocalStorage (state, value) {
+		localStorage.setItem('userLog', value);
 	}
 
 },
@@ -39,25 +53,51 @@ actions: {
 			email: valUser.getEmail()
 		})
 			.then((response) => {
-				console.log(response.data);
+				// console.log(response.data);
 				commit('setResponseSignUp', response.data);
 			})
-
-		// axios({
-		// 	method: 'post',
-		// 	url: 'http://127.0.0.1:8181/api/signup/',
-		// 	data: {
-		// 		username: valUser.getUsername(),
-		// 		email: valUser.getEmail(),
-		// 		password: valUser.getPassword()
-		// 	}
-		// });
-
-
-		// console.log(valUser);
 	},
+
+
+	loginStore ({commit}, user) { // connect to db
+
+		return new Promise((resolve, reject) => {
+			axios.post( API_URL + 'signin', {
+				username: user.getUsername(),
+				password: user.getPassword()
+			}).then( response => {
+				response.data.roles = response.data.roles[0];
+				commit('setUserInLocalStorage', JSON.stringify(response.data));
+				commit('setUser', response.data);				
+				commit('setResponseLogin', null);
+				resolve();				
+			}).catch( (err) => {
+				commit('setResponseLogin', 'User or password failed');
+				reject(err);
+			});
+		});
+
+	},
+
+	getUserLocalStorage ({commit}) { // created
+		
+		commit('setUser', JSON.parse(localStorage.getItem( 'userLog' )));
+	},
+
+
+	logOut ({commit}) {
+		localStorage.clear();
+		commit('setUser', null);
+	}
+
+},
+
+getters: {
+
+	isUserAuth() {
+		return (localStorage.getItem('userLog')) ? true : false;
+	}
+
 }
-
-
 
 });

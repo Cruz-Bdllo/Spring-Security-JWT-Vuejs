@@ -21,12 +21,24 @@
       The password must have at least 6 letters. 
     </div>
 
-    <button type="submit" :disabled="$v.$invalid" class="btn btn-success mt-3">Log in</button>
+    <div class="alert alert-success" v-if="response !== null">
+      <p class="m-0 p-0">{{response}} Log in.</p>
+    </div>
+
+    <div v-if="failLogin !== null" class="alert alert-danger">
+      <p class="m-0 p-0">{{failLogin}}</p>
+    </div>
+
+    <button type="submit" :disabled="$v.$invalid || actived" class="btn btn-success mt-3">Log in</button>
+   
+ 
   </form>
 </template>
 
 <script>
 
+import User from '@/models/User'
+import { mapActions, mapState } from 'vuex';
 import {required, minLength, maxLength} from 'vuelidate/lib/validators';
 
 export default {
@@ -34,11 +46,42 @@ export default {
 
     data() {
       return {
-        username: '',
+        username: null,
         password: null,
-        submitStatus: null
+        actived: false
       }
     },
+
+    computed: {
+
+      ...mapState({
+        response: 'responseSignUp',
+        failLogin : 'responseLogin'
+      })
+
+    },
+
+
+    methods: { // this method will conect to store
+
+      ...mapActions({
+        loginStore: 'loginStore'
+      }),
+
+      login() {
+        this.actived = true;
+        
+        let user = new User(this.username, this.password);
+        this.loginStore( user ).then(() => {
+          this.actived = false;
+          this.$router.push({name: 'Home'});
+        }).catch((erro) =>  {
+          this.actived = false;
+          console.log(erro);
+        })
+      }
+    },
+
 
     validations: {
       username: {
@@ -53,14 +96,8 @@ export default {
     },
 
 
-    methods: {
-      login() {
-        console.log("datos enviados");
-      }
-    },
-
     created () {
-      console.log(this.$v.$invalid);
+      // console.log(this.$v.$invalid);
     },
 
 }

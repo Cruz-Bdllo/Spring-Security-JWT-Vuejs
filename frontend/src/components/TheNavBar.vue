@@ -25,8 +25,8 @@
         
       </ul>
       
-      <span class="mr-3 text-white">mail@mail.com</span>
-      <button class="btn btn-purple my-2 my-sm-0" type="submit">Logout</button>
+      <span class="mr-3 text-white">{{user.email}}</span>
+      <button @click="logout" class="btn btn-purple my-2 my-sm-0" type="submit">Logout</button>
       
     </div>
   </nav>
@@ -34,6 +34,9 @@
 
 
 <script>
+
+import {mapState, mapActions} from 'vuex';
+
 export default {
   
   data() {
@@ -45,6 +48,28 @@ export default {
       current: this.$route.name
     }
   },
+
+  computed: {
+
+    ...mapState({
+      user: 'user'
+    })
+
+  },
+
+
+  methods: {
+
+    ...mapActions({
+      logOut: 'logOut'
+    }),
+
+    logout() {
+      this.logOut()
+      this.$router.push({name: 'Login'});
+    }
+
+  }
 
 }
 </script>

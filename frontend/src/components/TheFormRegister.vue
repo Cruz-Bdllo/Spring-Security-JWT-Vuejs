@@ -33,10 +33,7 @@
       The password must be same the before field password 
     </div>
 
-    <div class="alert alert-success" v-if="response !== null">
-      <p class="m-0 p-0">{{response}} <router-link :to="{name: 'Login'}">Sign in</router-link> </p>
-
-    </div>
+    
 
     <!-- Register -->
     <button type="submit" :disabled="$v.$invalid" class="btn btn-success mt-3">Sign up</button>
@@ -63,10 +60,7 @@ export default {
 
     computed: {
 
-      ...mapState({
-        response: 'responseSignUp'
-      })
-
+      
     },
 
     methods: {
@@ -79,7 +73,8 @@ export default {
         let userSignUp = new User(this.username, this.password);
         userSignUp.setEmail(this.email);
 
-        this.signUp(userSignUp);
+        this.signUp(userSignUp); // metodo del store
+        this.$router.push({name: 'Login'});
 
 
       }
