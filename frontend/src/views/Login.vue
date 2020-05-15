@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-12">
                     <img src="@/assets/logo.png" class="logo-login">
-                    <h1 class="display-4">Log in</h1>
+                    <h1 class="display-4 mb-4">Log in</h1>
 
                     <!-- Component form login -->
                     <FormLogin />
@@ -15,7 +15,7 @@
             <div class="row mt-5">
                 <div class="col-12">
                   <router-link class="account"
-                    :to="{name:'Logup'}">Don't have account?</router-link>
+                    :to="{name:'SignUp'}">Don't have account?</router-link>
                 </div>
             </div>
         </div>

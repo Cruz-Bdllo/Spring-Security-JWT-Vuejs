@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col-12">
                     <img src="@/assets/logo.png" class="logo-login">
-                    <h1 class="display-4">Log up</h1>
+                    <h1 class="display-4 mb-4">Sign up</h1>
 
                     <!-- Component form login -->
                     <FormRegister />
