@@ -77,7 +77,6 @@ export default {
           this.$router.push({name: 'Home'});
         }).catch((erro) =>  {
           this.actived = false;
-          console.log(erro);
         })
       }
     },
@@ -91,13 +90,8 @@ export default {
       },
       password: {
         required,
-        minLength: minLength(6)
+        minLength: minLength(3)
       }
-    },
-
-
-    created () {
-      // console.log(this.$v.$invalid);
     },
 
 }

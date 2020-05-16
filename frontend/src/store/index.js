@@ -83,6 +83,7 @@ actions: {
 				resolve();				
 			}).catch( (err) => {
 				commit('setResponseLogin', 'User or password failed');
+				console.log(err);
 				reject(err);
 			});
 		});
@@ -110,10 +111,8 @@ actions: {
 	},
 
 	existUsernameDB({commit}, username) {
-		// console.log(email)
 		axios.get('http://localhost:8585/api/existusername/' + username)
 			.then(response => {
-				// console.log(response.data);
 				commit('setResponseExistUsername', response.data);
 			}).catch(() => commit('setResponseExistUsername', null));
 	}

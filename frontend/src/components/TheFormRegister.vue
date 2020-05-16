@@ -94,11 +94,9 @@ export default {
 
       validEmail () {
         this.existEmailDB(this.email);
-        //console.log("cambio el input: ", this.email);
       },
 
       validUsername () {
-        //console.log(this.username);
         this.existUsernameDB(this.username);
       }
 

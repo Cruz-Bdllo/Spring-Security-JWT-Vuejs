@@ -16,10 +16,11 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item" 
-        v-for="link in links" :key="link.name"
+        v-for="link in filterLinks" :key="link.name"
+        
         :class="{'active':current==link.name}">
           <router-link class="nav-link" :to="{name: link.name}">
-            {{link.name}}
+            {{link.name}} 
           </router-link>
         </li>
         
@@ -42,8 +43,9 @@ export default {
   data() {
     return {
       links: [
-        {name:'Home'},
-        {name:'Account'}
+        {name:'Home', role: ['USER', 'ADMIN']},
+        {name:'Account', role: ['USER', 'ADMIN']},
+        {name:'Admin', role: ['ADMIN']}
       ],
       current: this.$route.name
     }
@@ -53,7 +55,20 @@ export default {
 
     ...mapState({
       user: 'user'
-    })
+    }),
+
+    filterLinks () {
+      // return this.links.filter(l => 
+      //   this.user.roles.roleName === l.role.filter(e => e == this.user.role.roleName)
+      // );
+
+      //console.log(this.links.filter( l =>  (l.role[0] === this.user.roles.roleName) || (l.role[1] === this.user.roles.roleName)));
+      return this.links.filter( l =>  (l.role[0] === this.user.roles.roleName) || (l.role[1] === this.user.roles.roleName));
+    },
+
+    isAdmin() {
+      return this.user.roles.roleName === 'ADMIN'
+    }
 
   },
 

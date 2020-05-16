@@ -4,7 +4,7 @@
       <NavBar />
 
       <div class="container mt-5">
-        <h1>Account</h1>
+        <h1>Admin page</h1>
 
         <h3 class="text-left mt-5">Info user</h3>
         <hr>
