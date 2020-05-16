@@ -14,7 +14,9 @@ export default new Vuex.Store({
 state: {
 	user: null,
 	responseSignUp: null,
-	responseLogin: null
+	responseLogin: null,
+	responseExistEmail: null,
+	responseExistUsername: null
 },
 
 mutations: {
@@ -37,6 +39,14 @@ mutations: {
 
 	setUserInLocalStorage (state, value) {
 		localStorage.setItem('userLog', value);
+	},
+
+	setResponseExistEmail(state, val) {
+		state.responseExistEmail = val;
+	},
+
+	setResponseExistUsername(state, val) {
+		state.responseExistUsername = val;
 	}
 
 },
@@ -88,7 +98,26 @@ actions: {
 	logOut ({commit}) {
 		localStorage.clear();
 		commit('setUser', null);
+	},
+
+	existEmailDB({commit}, email) {
+		console.log(email)
+		axios.get('http://localhost:8585/api/existuser/'+email)
+			.then(response => {
+				console.log(response.data);
+				commit('setResponseExistEmail', response.data);
+			}).catch(() => commit('setResponseExistEmail', null));
+	},
+
+	existUsernameDB({commit}, username) {
+		// console.log(email)
+		axios.get('http://localhost:8585/api/existusername/' + username)
+			.then(response => {
+				// console.log(response.data);
+				commit('setResponseExistUsername', response.data);
+			}).catch(() => commit('setResponseExistUsername', null));
 	}
+
 
 },
 

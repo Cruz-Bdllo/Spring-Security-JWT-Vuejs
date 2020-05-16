@@ -3,7 +3,7 @@
 
     <!-- Username -->
     <div class="form-group text-center d-flex justify-content-center my-3">
-      <input type="text" v-model="username" class="form-control" :class="{'is-valid':!$v.username.$invalid}" placeholder="Username:" required/>
+      <input type="text" @change="validUsername" v-model="username" class="form-control" :class="{'is-valid':!$v.username.$invalid}" placeholder="Username:" required/>
     </div>
     <div v-if="!$v.username.minLength" class="invalid-feedback d-block">
       The username must have at least 6 letters. 
@@ -11,10 +11,16 @@
     <div v-if="!$v.username.maxLength" class="invalid-feedback d-block">
       The username must have at most 30 letters. 
     </div>
+    <div v-if="existUsername" class="invalid-feedback d-block">
+        {{existUsername}}
+    </div>
 
     <!-- Email -->
     <div class="form-group text-center d-flex justify-content-center my-3">
-      <input type="text" v-model="email" class="form-control" :class="{'is-valid':!$v.email.$invalid}" placeholder="Email:" required/>
+      <input type="text" @change="validEmail" v-model="email" class="form-control" :class="{'is-valid':!$v.email.$invalid}" placeholder="Email:" required/>
+    </div>
+    <div v-if="existEmail" class="invalid-feedback d-block">
+        {{existEmail}}
     </div>
 
     <!-- Password -->
@@ -36,8 +42,7 @@
     
 
     <!-- Register -->
-    <button type="submit" :disabled="$v.$invalid" class="btn btn-success mt-3">Sign up</button>
-    
+    <button type="submit" :disabled="$v.$invalid || existEmail || existUsername" class="btn btn-success mt-3">Sign up</button>
   </form>
 </template>
 
@@ -60,12 +65,20 @@ export default {
 
     computed: {
 
-      
+      ...mapState({
+        existEmail: 'responseExistEmail',
+        existUsername: 'responseExistUsername'
+      })
+
     },
 
     methods: {
 
-      ...mapActions({ signUp: 'signUp' }),
+      ...mapActions({ 
+        signUp: 'signUp',
+        existEmailDB: 'existEmailDB',
+        existUsernameDB: 'existUsernameDB'
+      }),
 
       signup() { // debe enviar los datos al api
 
@@ -76,7 +89,17 @@ export default {
         this.signUp(userSignUp); // metodo del store
         this.$router.push({name: 'Login'});
 
+      },
 
+
+      validEmail () {
+        this.existEmailDB(this.email);
+        //console.log("cambio el input: ", this.email);
+      },
+
+      validUsername () {
+        //console.log(this.username);
+        this.existUsernameDB(this.username);
       }
 
     },
