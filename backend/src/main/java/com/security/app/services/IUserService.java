@@ -20,4 +20,8 @@ public interface IUserService {
 
     void deleteUserById(Integer idUser);
 
+    boolean existUserEmail(String email);
+
+    boolean existUsername(String username);
+
 } // end of service interface

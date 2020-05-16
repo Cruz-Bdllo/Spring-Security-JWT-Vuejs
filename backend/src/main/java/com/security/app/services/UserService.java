@@ -57,4 +57,20 @@ public class UserService implements IUserService{
     public void deleteUserById(Integer idUser) {
         userRepository.deleteById(idUser);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public boolean existUserEmail(String email) {
+        User user = userRepository.findUserByEmail(email).orElse(null);
+        return (user != null) ? true : false;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public boolean existUsername(String username) {
+        User user = userRepository.findUserByUserName(username).orElse(null);
+        return (user != null) ? true : false;
+    }
+
+
 } // end service class implementation

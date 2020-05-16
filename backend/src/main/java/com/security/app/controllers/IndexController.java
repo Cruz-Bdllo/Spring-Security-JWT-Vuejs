@@ -1,5 +1,6 @@
 package com.security.app.controllers;
 
+import com.fasterxml.jackson.core.JsonParser;
 import com.security.app.entities.User;
 import com.security.app.payload.AuthenticationRequest;
 import com.security.app.payload.AuthenticationResponse;
@@ -7,7 +8,11 @@ import com.security.app.security.service.MyUserDetailsService;
 import com.security.app.security.util.JwtUtil;
 import com.security.app.services.IRoleService;
 import com.security.app.services.IUserService;
+import org.apache.tomcat.util.json.JSONParser;
+import org.apache.tomcat.util.json.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -66,6 +71,20 @@ public class IndexController {
 
 
         return ResponseEntity.ok(new AuthenticationResponse(token, user));
+    }
+
+    @GetMapping("/existuser/{email}")
+    public ResponseEntity<?> existEmailUser(@PathVariable String email ) {
+        return (userService.existUserEmail(email)) ?
+                ResponseEntity.ok("email already exists") :
+                ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/existusername/{username}")
+    public ResponseEntity<?> existUsername(@PathVariable String username ) {
+        return (userService.existUsername(username)) ?
+                ResponseEntity.ok("username already exists") :
+                ResponseEntity.notFound().build();
     }
 
 
