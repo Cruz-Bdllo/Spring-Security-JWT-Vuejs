@@ -64,14 +64,14 @@
 
 [img-mer]: https://raw.githubusercontent.com/Cruz-Bdllo/Spring-Security-JWT/master/img-project/mer.png "diagrama de Entidad Relación"
 
-[img-signup]: https:// "Sign up"
+[img-signup]: https://raw.githubusercontent.com/Cruz-Bdllo/Spring-Security-JWT-Vuejs/master/imgs/exist_email_user.png "Sign up"
 
-[img-login]: https:// "Log in"
+[img-login]: https://raw.githubusercontent.com/Cruz-Bdllo/Spring-Security-JWT-Vuejs/master/imgs/sing_up_success.png "Log in"
 
-[img-home]: https:// "Home User"
+[img-home]: https://raw.githubusercontent.com/Cruz-Bdllo/Spring-Security-JWT-Vuejs/master/imgs/home.png "Home User"
 
-[img-admin]: https:// "Home Admin"
+[img-admin]: https://raw.githubusercontent.com/Cruz-Bdllo/Spring-Security-JWT-Vuejs/master/imgs/admin.png "Home Admin"
 
-[img-token]: https:// "token"
+[img-token]: https://raw.githubusercontent.com/Cruz-Bdllo/Spring-Security-JWT-Vuejs/master/imgs/valid_token.png "token"
 
-[img-info]: https:// "Info"
+[img-info]: https://raw.githubusercontent.com/Cruz-Bdllo/Spring-Security-JWT-Vuejs/master/imgs/user.png "Info"
