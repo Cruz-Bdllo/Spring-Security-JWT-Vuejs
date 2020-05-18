@@ -58,11 +58,6 @@ export default {
     }),
 
     filterLinks () {
-      // return this.links.filter(l => 
-      //   this.user.roles.roleName === l.role.filter(e => e == this.user.role.roleName)
-      // );
-
-      //console.log(this.links.filter( l =>  (l.role[0] === this.user.roles.roleName) || (l.role[1] === this.user.roles.roleName)));
       return this.links.filter( l =>  (l.role[0] === this.user.roles.roleName) || (l.role[1] === this.user.roles.roleName));
     },
 

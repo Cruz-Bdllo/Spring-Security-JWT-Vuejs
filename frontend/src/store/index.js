@@ -1,6 +1,5 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import User from "../models/User";
 import axios from 'axios'
 
 const API_URL = 'http://localhost:8585/api/';
@@ -24,18 +23,15 @@ mutations: {
 	setUser(state, value) {
 		state.user = value;
 	},
-
 	
 
 	setResponseSignUp (state, value) {
 		state.responseSignUp = value;
 	},
 
-
 	setResponseLogin (state, value) {
 		state.responseLogin = value;
 	},
-
 
 	setUserInLocalStorage (state, value) {
 		localStorage.setItem('userLog', value);
@@ -81,10 +77,10 @@ actions: {
 				commit('setUser', response.data);				
 				commit('setResponseLogin', null);
 				resolve();				
-			}).catch( (err) => {
+			}).catch( err => {
 				commit('setResponseLogin', 'User or password failed');
+				
 				console.log(err);
-				reject(err);
 			});
 		});
 
@@ -103,7 +99,7 @@ actions: {
 
 	existEmailDB({commit}, email) {
 		console.log(email)
-		axios.get('http://localhost:8585/api/existuser/'+email)
+		axios.get(API_URL+'existuser/' + email)
 			.then(response => {
 				console.log(response.data);
 				commit('setResponseExistEmail', response.data);
@@ -111,12 +107,25 @@ actions: {
 	},
 
 	existUsernameDB({commit}, username) {
-		axios.get('http://localhost:8585/api/existusername/' + username)
+		axios.get(API_URL + 'existusername/' + username)
 			.then(response => {
 				commit('setResponseExistUsername', response.data);
 			}).catch(() => commit('setResponseExistUsername', null));
-	}
+	},
 
+	validateToken({commit, state}){
+
+		axios.get(API_URL + 'home', {
+			headers: {
+				Authorization: 'Bearer ' + state.user.token
+			}
+		}).then(res => {
+			console.log( res.status );
+		}).catch(err => {
+			console.log(err);
+		})
+				
+	}
 
 },
 

@@ -64,12 +64,10 @@ export default {
     },
 
     computed: {
-
       ...mapState({
         existEmail: 'responseExistEmail',
         existUsername: 'responseExistUsername'
       })
-
     },
 
     methods: {
@@ -82,7 +80,6 @@ export default {
 
       signup() { // debe enviar los datos al api
 
-        // construir el objeto User
         let userSignUp = new User(this.username, this.password);
         userSignUp.setEmail(this.email);
 

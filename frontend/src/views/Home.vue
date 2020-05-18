@@ -11,6 +11,7 @@
                 <hr class="my-4">
                 <p class="text-left">Roles: {{user.roles.roleName}}</p>
                 <p class="text-left">Token: {{user.token}}</p>
+                <button @click="validaToken" class="btn btn-success">Validar token</button>
             </div>
         </div>
 
@@ -37,8 +38,13 @@ export default {
     methods: {
 
         ...mapActions({
-            getUser: 'getUserLocalStorage'
-        })
+            getUser: 'getUserLocalStorage',
+            validateToken: 'validateToken'
+        }),
+
+        validaToken () {
+            this.validateToken();
+        }
 
     },
 
